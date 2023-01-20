@@ -1,0 +1,19 @@
+superusers = [1483492332]
+
+[bot]
+plugin_dirs = [
+    "plugins/core",
+    "plugins/normal"
+]
+adapters = ["alicebot.adapter.cqhttp"]
+
+[bot.log]
+level = "INFO"
+verbose_exception = false  # 启用自带的详细报错
+save = false  # 日志是否保存到本地
+
+[adapter.cqhttp]
+adapter_type = "reverse-ws"
+host = "127.0.0.1"
+port = 9999
+url = "/cqhttp/ws"
