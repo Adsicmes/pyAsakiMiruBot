@@ -1,0 +1,28 @@
+superusers = [1483492332]
+
+[bot]
+plugin_dirs = [
+    "plugins/core",
+    "plugins/normal"
+]
+adapters = ["alicebot.adapter.cqhttp"]
+
+[bot.log]
+level = "INFO"
+verbose_exception = false  # 启用自带的详细报错
+save = false  # 日志是否保存到本地
+
+[adapter.cqhttp]
+adapter_type = "reverse-ws"
+host = "127.0.0.1"
+port = 9999
+url = "/cqhttp/ws"
+
+# 以下为插件配置项
+
+[osu]
+api_client_id = 20063
+api_client_secret = "yJ2cCKPys1o5fO6u85p4Xg29AYubOEzPeaXHMzs5"
+
+[fk_group_friends]
+at_limit_time = 259200  # 指定fk人的时间间隔 以秒为单位
