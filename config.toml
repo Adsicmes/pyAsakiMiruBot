@@ -17,3 +17,9 @@ adapter_type = "reverse-ws"
 host = "127.0.0.1"
 port = 9999
 url = "/cqhttp/ws"
+
+# 以下为插件配置项
+
+[osu]
+api_client_id = 20063
+api_client_secret = ""
