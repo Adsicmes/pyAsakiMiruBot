@@ -23,3 +23,6 @@ url = "/cqhttp/ws"
 [osu]
 api_client_id = 20063
 api_client_secret = ""
+
+[fk_group_friends]
+at_limit_time = 259200  # 指定fk人的时间间隔 以秒为单位
