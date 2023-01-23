@@ -1,4 +1,5 @@
 import os
+import platform
 
 from alicebot import Bot
 from alicebot.log import logger
@@ -6,6 +7,17 @@ from sys import stdout
 
 # 打开后，在热重载时，log_configure函数做出的更改会部分失效
 bot = Bot(hot_reload=False)
+
+def get_platform():
+    sys_platform = platform.platform().lower()
+    if "windows" in sys_platform:
+        return "Windows"
+    elif "macos" in sys_platform:
+        return "Mac os"
+    elif "linux" in sys_platform:
+        return "Linux"
+    else:
+        return "others"
 
 @bot.bot_run_hook
 async def run_hook(_bot: Bot) -> None:
@@ -29,6 +41,7 @@ async def run_hook(_bot: Bot) -> None:
 
         # 关闭原有bot类日志
         logger.disable("alicebot.bot")
+        # logger.disable("")
 
         # 查看配置文件，是否日志保存到本地
         if _bot.config.bot.log.save:
@@ -39,6 +52,8 @@ async def run_hook(_bot: Bot) -> None:
             if not os.path.isdir("log/error"):
                 os.mkdir("log/error")
 
+            pf = get_platform()
+
             logger.add(
                 "log/normal/bot_run_{time}.log",
                 rotation="1 week",
@@ -46,7 +61,7 @@ async def run_hook(_bot: Bot) -> None:
                 compression="zip",
                 enqueue=True,
                 level='INFO',
-                colorize=False,
+                colorize=True if pf == "Linux" else False,
                 format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
             )
 
@@ -57,7 +72,7 @@ async def run_hook(_bot: Bot) -> None:
                 compression="zip",
                 enqueue=True,
                 level="WARNING",
-                colorize=False,
+                colorize=True if pf == "Linux" else False,
                 format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
             )
 
@@ -65,7 +80,7 @@ async def run_hook(_bot: Bot) -> None:
     logger.success("Bot running. アトリは、高性能ですから!")
 
 @bot.bot_exit_hook
-async def exit_hook(_bot: Bot) -> None:
+def exit_hook(_bot: Bot) -> None:
     logger.warning("Bot exiting...")
 
 if __name__ == "__main__":
