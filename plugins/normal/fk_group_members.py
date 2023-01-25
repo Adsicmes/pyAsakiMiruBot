@@ -93,7 +93,7 @@ LOCATION = {
 
 
 # noinspection DuplicatedCode
-class FkGroupMembers(Plugin):
+class FkGroupMembers():
     priority = 50
     block = True
     hook_flag = False
